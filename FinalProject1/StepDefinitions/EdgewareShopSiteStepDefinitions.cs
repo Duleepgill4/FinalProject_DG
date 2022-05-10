@@ -46,8 +46,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         public void WhenIApplyTheDiscountCode(string edgewords)
         {
             DiscountTotal Coupon = new DiscountTotal(driver);
-            string Edgewords = "edgewords";
-            Coupon.AddCoupon(Edgewords);
+            Coupon.AddCoupon(edgewords);
             Coupon.ApplyCoupon();
         }
 
@@ -71,7 +70,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             //entering try to capture if the discount is correct or not
             try
             {
-                Assert.That(AppliedDiscount, Is.EqualTo(Discount15), "Incorrect discount applied");
+                Assert.That(AppliedDiscount, Is.EqualTo(Discount15), "Incorrect discount applied !");
 
             }
             catch (Exception)
@@ -98,7 +97,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
 
             decimal CorrectTotal = (Subtotal2 - DiscountTotal) + Shipping;
             //If correct total is same as supposed total then pass if it fails show message.
-            Assert.That(CorrectTotal, Is.EqualTo(Total), "total price is not calculated correctly");
+            Assert.That(CorrectTotal, Is.EqualTo(Total), "Total price is not calculated correctly !");
 
 
         }

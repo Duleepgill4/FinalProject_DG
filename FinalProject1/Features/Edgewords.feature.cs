@@ -21,12 +21,14 @@ namespace FinalProject1.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Edgeware Shop Site")]
+    [NUnit.Framework.CategoryAttribute("EdgewareShop")]
     public partial class EdgewareShopSiteFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "EdgewareShop"};
         
 #line 1 "Edgewords.feature"
 #line hidden
@@ -35,7 +37,8 @@ namespace FinalProject1.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Edgeware Shop Site", "Logging in to an ecommerce site with an existing account", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Edgeware Shop Site", "Registered user can log in and place an order using a discount and get confirmati" +
+                    "on of order", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
