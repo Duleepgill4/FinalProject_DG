@@ -20,8 +20,8 @@ namespace FinalProject1.POMS
 
             //add hoddie with logo to cart 
         public IWebElement Hoodie => driver.FindElement(By.PartialLinkText("Hoodie with Logo"));
-        public IWebElement AddItem => driver.FindElement(By.Name("add-to-cart"));
-        public IWebElement ViewCart => driver.FindElement(By.ClassName("cart-contents"));
+        public IWebElement AddItem => driver.FindElement(By.CssSelector("button[name='add-to-cart']"));
+        public IWebElement ViewCart => driver.FindElement(By.CssSelector("ul#site-header-cart  a[title='View your shopping cart']"));
 
         public void AddHoodie()
         {

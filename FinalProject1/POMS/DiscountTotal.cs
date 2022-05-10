@@ -14,19 +14,19 @@ namespace FinalProject1.POMS
         {
             this.driver = driver;
         }
-        public IWebElement couponE => driver.FindElement(By.Name("coupon_code"));
-        public IWebElement couponClick => driver.FindElement(By.Name("apply_coupon"));
+        public IWebElement CouponField => driver.FindElement(By.CssSelector("input#coupon_code"));
+        public IWebElement CouponClick => driver.FindElement(By.CssSelector("button[name='apply_coupon']"));
 
 
         public DiscountTotal AddCoupon (string edgewords)
         {
-            couponE.SendKeys(edgewords);
+            CouponField.SendKeys(edgewords);
             return this;
         }
         public void ApplyCoupon()
         {
             
-            couponClick.Click();
+            CouponClick.Click();
             
         }
 

@@ -37,6 +37,7 @@ namespace FinalProject1.TestBase
         [AfterScenario]
         public void Teardown()
         {
+            Thread.Sleep(2000);
             //navigate to account and logout
             driver.FindElement(By.Id("menu-item-46")).Click();
             driver.FindElement(By.PartialLinkText("Log out")).Click();
