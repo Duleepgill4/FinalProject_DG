@@ -3,8 +3,11 @@
 	<RunConfiguration>
 		<EnvironmentVariables>
 			<LogInURL>https://www.edgewordstraining.co.uk/demo-site/my-account/</LogInURL>
+			
 			<username>duleepgill@email.com</username>
 			<password>Passwordpassword1.</password>
+			
+			
 			<firstname>Jane</firstname>
 			<lastname>Smith</lastname>
 			<addressL1>1 House Lane</addressL1>
@@ -12,6 +15,7 @@
 			<city>Leicestershire</city>
 			<postcode>LE1 9BH</postcode>
 			<phone>07111111111</phone>
+			
 			
 		</EnvironmentVariables>
 	</RunConfiguration>

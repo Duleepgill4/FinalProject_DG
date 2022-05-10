@@ -21,7 +21,7 @@ namespace FinalProject1.StepDefinitions
             _scenarioContext = scenarioContext;
             driver = (IWebDriver)_scenarioContext["webdriver"];
 
-
+                    
         }
       
         [Given(@"That I am a registered user")]
@@ -29,10 +29,10 @@ namespace FinalProject1.StepDefinitions
         {
             Thread.Sleep(1000);
             //login using environmental variables username/pass from runsettings
-            LogInPOMS Login = new LogInPOMS(driver);
-            Login.dismiss();
-            Login.Loginuser(Environment.GetEnvironmentVariable("username"));
-            Login.Loginpass(Environment.GetEnvironmentVariable("password"));
+            LogInPOMS LogIn = new LogInPOMS(driver);
+            LogIn.dismiss();
+            LogIn.Loginuser(Environment.GetEnvironmentVariable("username"));
+            LogIn.Loginpass(Environment.GetEnvironmentVariable("password"));
             driver.FindElement(By.Name("login")).Click();
             //.SendKeys(Keys.Enter);
                                  
@@ -43,8 +43,8 @@ namespace FinalProject1.StepDefinitions
         public void WhenIAddAnItemOfClothingWithADiscountCodeToMyCart()
         {
             //hoddie with logo added to cart
-            AddToCart hoodie = new AddToCart(driver);
-            hoodie.AddHoodie();
+            AddToCart Hoodie = new AddToCart(driver);
+            Hoodie.AddHoodie();
 
         }
 
@@ -52,8 +52,8 @@ namespace FinalProject1.StepDefinitions
         public void ThenTheDiscountAndShippingIsAppliedToTheTotal()
         {
             DiscountTotal coupon = new DiscountTotal(driver);
-            string edgewords = "edgewords";
-            coupon.AddCoupon(edgewords);
+            string Edgewords = "edgewords";
+            coupon.AddCoupon(Edgewords);
             coupon.ApplyCoupon();
 
 
@@ -64,13 +64,13 @@ namespace FinalProject1.StepDefinitions
 
             //get discount value as css and convert to decimal and remove string position 1 (£)
             string getdiscount = driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount")).Text;
-            decimal discount = Decimal.Parse(getdiscount.Substring(1));
+            decimal discount = (Decimal.Parse(getdiscount.Substring(1)))*100;
             
             //get after discount price and convert to float
             string getsubtotal = driver.FindElement(By.CssSelector(".cart-subtotal > td > .amount.woocommerce-Price-amount")).Text;
             decimal subtotal = Decimal.Parse(getsubtotal.Substring(1));
             //calculate discount applied
-            decimal applieddiscount = subtotal / discount;//10
+            decimal applieddiscount = (discount / subtotal);//=10
             decimal discount15 = 15; //correct discount of coupon
 
             //entering try to capture if the discount is correct or not
@@ -92,8 +92,8 @@ namespace FinalProject1.StepDefinitions
             decimal subtotal2 = Decimal.Parse(getsubtotal2.Substring(1));
             decimal shipping = Decimal.Parse("3.95");   //shipping cost
 
-            string getdiscounttotal = driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount")).Text;
-            decimal discountotal = Decimal.Parse(getdiscounttotal.Substring(1));
+            string getDiscounttotal = driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount")).Text;
+            decimal discountotal = Decimal.Parse(getDiscounttotal.Substring(1));
             string gettotal = driver.FindElement(By.CssSelector("strong > .amount.woocommerce-Price-amount")).Text;
             decimal total = Decimal.Parse(gettotal.Substring(1));
              
