@@ -16,18 +16,18 @@ namespace FinalProject1.TestBase
         public static IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
 
-        public TestBase (ScenarioContext scenarioContext)
-            {
-                _scenarioContext = scenarioContext;
-            }
+        public TestBase(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         [BeforeScenario]
         public void SetUp()
         {
-            
-            
+
+
             //set up baseURL
-            driver = new ChromeDriver();           
+            driver = new ChromeDriver();
             _scenarioContext["webdriver"] = driver;
             string LogInURL = Environment.GetEnvironmentVariable("LogInURL");
             driver.Url = LogInURL;
@@ -37,7 +37,6 @@ namespace FinalProject1.TestBase
         [AfterScenario]
         public void Teardown()
         {
-            Thread.Sleep(2000);
             //navigate to account and logout
             driver.FindElement(By.Id("menu-item-46")).Click();
             driver.FindElement(By.PartialLinkText("Log out")).Click();

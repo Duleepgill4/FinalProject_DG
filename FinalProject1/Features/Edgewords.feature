@@ -1,21 +1,27 @@
-﻿Feature: Edgeware Shop Site
+﻿@EdgewareShop
+Feature: Edgeware Shop Site	
 
-Logging in to an ecommerce site with an existing account
+Registered user can log in and place an order using a discount and get confirmation of order
 
-#Test Case 1
 
-Scenario: Log in to edgewords 
-	Given That I am a registered user
-	When I add an item of clothing with a discount code to my cart
+Background: 
+	Given I log in as a registered user
+	And I add an item to my cart
+
+
+#Test Case 1- following given; adds coupon code and checks coupon is correct as well as the total
+
+Scenario: use discount code	 
+	When I apply the 'edgewords' discount code
 	Then the discount and shipping is applied to the total
+	And the total is calculated correctly
 
 
-#Test Case 2
+#Test Case 2- following given; places order and checks its present in placed orders
 
 
 
 Scenario: Confirm order has been placed
-	Given That I have an item in my cart
 	When I checkout with my details
 	Then My order is present in my Orders
 
