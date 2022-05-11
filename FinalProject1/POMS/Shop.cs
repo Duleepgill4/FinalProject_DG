@@ -7,10 +7,10 @@ using OpenQA.Selenium;
 
 namespace FinalProject1.POMS
 {
-    public class AddToCart
+    public class Shop
     {
         IWebDriver driver;
-        public AddToCart(IWebDriver driver)
+        public Shop(IWebDriver driver)
         {
             this.driver = driver;
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace FinalProject1.POMS
 {
@@ -76,7 +77,9 @@ namespace FinalProject1.POMS
         }
         public void placed()
         {
-            
+            var ScrollToCheckout = new Actions(driver);
+            ScrollToCheckout.MoveToElement(PlaceOrder);
+            ScrollToCheckout.Perform();
             PlaceOrder.Click();
         }
     }

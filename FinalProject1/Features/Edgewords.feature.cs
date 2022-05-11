@@ -20,15 +20,15 @@ namespace FinalProject1.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Edgeware Shop Site")]
-    [NUnit.Framework.CategoryAttribute("EdgewareShop")]
-    public partial class EdgewareShopSiteFeature
+    [NUnit.Framework.DescriptionAttribute("Edgewords Shop Site")]
+    [NUnit.Framework.CategoryAttribute("EdgewordsShop")]
+    public partial class EdgewordsShopSiteFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "EdgewareShop"};
+                "EdgewordsShop"};
         
 #line 1 "Edgewords.feature"
 #line hidden
@@ -37,7 +37,7 @@ namespace FinalProject1.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Edgeware Shop Site", "Registered user can log in and place an order using a discount and get confirmati" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Edgewords Shop Site", "Registered user can log in and place an order using a discount and get confirmati" +
                     "on of order", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -112,7 +112,7 @@ this.FeatureBackground();
  testRunner.When("I apply the \'edgewords\' discount code", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
- testRunner.Then("the discount and shipping is applied to the total", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the \'15\'% discount and shipping is applied to the total", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 17
  testRunner.And("the total is calculated correctly", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -144,7 +144,7 @@ this.FeatureBackground();
 #line 25
  testRunner.When("I checkout with my details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 26
+#line 27
  testRunner.Then("My order is present in my Orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

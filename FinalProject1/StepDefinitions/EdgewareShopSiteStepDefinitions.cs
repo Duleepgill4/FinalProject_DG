@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 using FinalProject1.POMS;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions;
 //using static FinalProject1.StepDefinitions.TestBase;
 
 namespace FinalProject1.EdgewareShopSiteStepDefinitions
@@ -25,7 +26,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         [Given(@"I log in as a registered user")]
         public void GivenILogInAsARegisteredUser()
         {
-            Thread.Sleep(1000);
+            
             //login using environmental variables username/pass from runsettings
             LogInPOMS LogIn = new LogInPOMS(driver);
             LogIn.Dismiss();
@@ -38,44 +39,39 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         public void GivenIAddAnItemToMyCart()
         {
             //hoddie with logo added to cart
-            AddToCart Hoodie = new AddToCart(driver);
+            Shop Hoodie = new Shop(driver);
             Hoodie.AddHoodie();
         }
 
         [When(@"I apply the '([^']*)' discount code")]
         public void WhenIApplyTheDiscountCode(string edgewords)
         {
-            DiscountTotal Coupon = new DiscountTotal(driver);
+            Cart Coupon = new Cart(driver);
             Coupon.AddCoupon(edgewords);
-            Coupon.ApplyCoupon();
         }
 
-        [Then(@"the discount and shipping is applied to the total")]
-        public void ThenTheDiscountAndShippingIsAppliedToTheTotal()
+        [Then(@"the '([^']*)'% discount and shipping is applied to the total")]
+        public void ThenTheDiscountAndShippingIsAppliedToTheTotal(Decimal p0)
         {
-            //explicit conditional wait/thread 
+            //allowing the system to catch up after adding coupon
             Thread.Sleep(1000);
 
-            //get discount value as css and convert to decimal and remove string position 1 (£)
-            string GetDiscount = driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount")).Text;
-            decimal Discount = (Decimal.Parse(GetDiscount.Substring(1))) * 100;
-
-            //get after discount price and convert to float
-            string GetSubtotal = driver.FindElement(By.CssSelector(".cart-subtotal > td > .amount.woocommerce-Price-amount")).Text;
-            decimal Subtotal = Decimal.Parse(GetSubtotal.Substring(1));
-            //calculate discount applied
+            Cart Coupon = new Cart(driver);
+            //calling in and assigning figures to be used for assertion
+            Decimal Discount = (Coupon.Discount())*100;
+            Decimal Subtotal = Coupon.Subtotal();
+            //calculate discount actually applied
             decimal AppliedDiscount = (Discount / Subtotal);//=10
-            decimal Discount15 = 15; //correct discount of coupon
 
             //entering try to capture if the discount is correct or not
             try
             {
-                Assert.That(AppliedDiscount, Is.EqualTo(Discount15), "Incorrect discount applied !");
+                Assert.That(AppliedDiscount, Is.EqualTo(p0), "Incorrect discount applied !");
 
             }
-            catch (Exception)
+            catch (Exception error)
             {
-
+                Console.WriteLine("Unable to calculate discount ",error.Message);
             }
         }
 
@@ -84,18 +80,17 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         {
             //checking total including discount and shipping
 
-            string GetSubtotalAgain = driver.FindElement(By.CssSelector(".cart-subtotal > td > .amount.woocommerce-Price-amount")).Text;
-            //convert cssselector captured as string to decimal and remove first string (£)
-            decimal Subtotal2 = Decimal.Parse(GetSubtotalAgain.Substring(1));
-            decimal Shipping = Decimal.Parse("3.95");   //shipping cost
-            //capture discount total and convert string to dec and strip first string (£)
-            string GetDiscountTotal = driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount")).Text;
-            decimal DiscountTotal = Decimal.Parse(GetDiscountTotal.Substring(1));
-            //capture total and convert string to decimal and strip first string (£)
-            string GetTotal = driver.FindElement(By.CssSelector("strong > .amount.woocommerce-Price-amount")).Text;
-            decimal Total = Decimal.Parse(GetTotal.Substring(1));
 
-            decimal CorrectTotal = (Subtotal2 - DiscountTotal) + Shipping;
+            Cart Coupon = new Cart(driver);
+            //calling in and assigning figures to be used for assertion
+            Decimal Discount1 = Coupon.Discount();
+            Decimal Subtotal1 = Coupon.Subtotal();
+            Decimal Total = Coupon.Total();
+            Decimal Shipping = Coupon.Shipping();
+         //   decimal Shipping = Decimal.Parse("3.95");   
+
+
+            Decimal CorrectTotal = (Subtotal1 - Discount1) + Shipping;
             //If correct total is same as supposed total then pass if it fails show message.
             Assert.That(CorrectTotal, Is.EqualTo(Total), "Total price is not calculated correctly !");
 
@@ -115,7 +110,8 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             Checkout.Billingpc(Environment.GetEnvironmentVariable("postcode"));
             Checkout.Billingphone(Environment.GetEnvironmentVariable("phone"));
 
-            Thread.Sleep(1000);
+        
+            //driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(2); //Thread.Sleep(1000);
             Checkout.placed();
         }
 
@@ -129,7 +125,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             //order just placed
             string MyOrder = '#' + driver.FindElement(By.CssSelector(".order > strong")).Text;
 
-            OrderDetails orderDetails = new OrderDetails(driver);
+            Orders orderDetails = new Orders(driver);
             orderDetails.ViewOrders();
 
             //capture the whole orders tbl

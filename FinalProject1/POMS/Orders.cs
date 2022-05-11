@@ -7,10 +7,10 @@ using OpenQA.Selenium;
 
 namespace FinalProject1.POMS
 {
-    public class OrderDetails
+    public class Orders
     {
         IWebDriver driver;
-        public OrderDetails(IWebDriver driver)
+        public Orders(IWebDriver driver)
         {
             this.driver = driver;
         }
@@ -19,6 +19,8 @@ namespace FinalProject1.POMS
         //public IWebElement MyOrderNum => driver.FindElement(By.CssSelector(".order > strong"));
         public IWebElement AccountNav => driver.FindElement(By.LinkText("My account"));
         public IWebElement MyOrders => driver.FindElement(By.LinkText("Orders"));
+        //capture the whole orders tbl
+        public IWebElement AllOrders => driver.FindElement(By.ClassName("account-orders-table"));
 
 
         public void ViewOrders()
@@ -26,9 +28,8 @@ namespace FinalProject1.POMS
             /*MyOrderNum.Displayed();*/
             AccountNav.Click();
             MyOrders.Click();
-            
         }
-      
+   
 
     }
 }

@@ -1,5 +1,5 @@
-﻿@EdgewareShop
-Feature: Edgeware Shop Site	
+﻿@EdgewordsShop
+Feature: Edgewords Shop Site	
 
 Registered user can log in and place an order using a discount and get confirmation of order
 
@@ -13,7 +13,7 @@ Background:
 
 Scenario: use discount code	 
 	When I apply the 'edgewords' discount code
-	Then the discount and shipping is applied to the total
+	Then the '15'% discount and shipping is applied to the total
 	And the total is calculated correctly
 
 
@@ -23,5 +23,6 @@ Scenario: use discount code
 
 Scenario: Confirm order has been placed
 	When I checkout with my details
+	#inline table 
 	Then My order is present in my Orders
 
