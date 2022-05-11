@@ -22,7 +22,9 @@ Scenario: use discount code
 
 
 Scenario: Confirm order has been placed
-	When I checkout with my details
-	#inline table 
+	When I checkout with my <details>
+	#inline table|
+	| Firstname | Lastname | AddressL1    | AddressL2 | City           | Postcode | PhoneNo     |
+	| Jane      | Smith    | 1 House Lane | Leicester | Leicestershire | LE1 9BH  | 07111111111 |
 	Then My order is present in my Orders
-
+	

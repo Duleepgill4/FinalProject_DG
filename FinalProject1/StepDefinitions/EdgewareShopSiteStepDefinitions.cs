@@ -6,6 +6,7 @@ using TechTalk.SpecFlow;
 using FinalProject1.POMS;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
+using TechTalk.SpecFlow.Assist;
 //using static FinalProject1.StepDefinitions.TestBase;
 
 namespace FinalProject1.EdgewareShopSiteStepDefinitions
@@ -15,12 +16,15 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
     {
         IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
-
-        public EdgewareShopSiteStepDefinitions(ScenarioContext scenarioContext)
+        private TestData _data;
+        public EdgewareShopSiteStepDefinitions(ScenarioContext scenarioContext, TestData data)
         {
+            
             //defining browser with scenario contect
             _scenarioContext = scenarioContext;
+            _data = data;
             driver = (IWebDriver)_scenarioContext["webdriver"];
+
         }
 
         [Given(@"I log in as a registered user")]
@@ -79,40 +83,27 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         public void ThenTheTotalIsCalculatedCorrectly()
         {
             //checking total including discount and shipping
-
-
             Cart Coupon = new Cart(driver);
             //calling in and assigning figures to be used for assertion
             Decimal Discount1 = Coupon.Discount();
             Decimal Subtotal1 = Coupon.Subtotal();
             Decimal Total = Coupon.Total();
             Decimal Shipping = Coupon.Shipping();
-         //   decimal Shipping = Decimal.Parse("3.95");   
-
 
             Decimal CorrectTotal = (Subtotal1 - Discount1) + Shipping;
             //If correct total is same as supposed total then pass if it fails show message.
             Assert.That(CorrectTotal, Is.EqualTo(Total), "Total price is not calculated correctly !");
 
-
         }
-
-        [When(@"I checkout with my details")]
-        public void WhenICheckoutWithMyDetails()
+        [When(@"I checkout with my <details>")]
+        public void WhenICheckoutWithMyDetails(Table table)
         {
+            _data = table.CreateInstance<TestData>();
+
             Checkout Checkout = new Checkout(driver);
             Checkout.CheckoutBtn();
-            Checkout.Billingfn(Environment.GetEnvironmentVariable("firstname"));
-            Checkout.Billingln(Environment.GetEnvironmentVariable("lastname"));
-            Checkout.Billingal1(Environment.GetEnvironmentVariable("addressL1"));
-            Checkout.Billingal2(Environment.GetEnvironmentVariable("addressl2"));
-            Checkout.Billingcity(Environment.GetEnvironmentVariable("city"));
-            Checkout.Billingpc(Environment.GetEnvironmentVariable("postcode"));
-            Checkout.Billingphone(Environment.GetEnvironmentVariable("phone"));
-
-        
-            //driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(2); //Thread.Sleep(1000);
-            Checkout.placed();
+            Checkout.BillingDetails(_data);
+            Checkout.Placed();
         }
 
         [Then(@"My order is present in my Orders")]
@@ -130,7 +121,6 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
 
             //capture the whole orders tbl
             var Orders = driver.FindElement(By.ClassName("account-orders-table")).Text;
-            //List<string> allOrders = new List<string>();
 
             //check order numn is present in orders
             Assert.That(Orders, Does.Contain(MyOrder), "order not present in stored orders");

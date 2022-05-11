@@ -141,10 +141,26 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Firstname",
+                            "Lastname",
+                            "AddressL1",
+                            "AddressL2",
+                            "City",
+                            "Postcode",
+                            "PhoneNo"});
+                table1.AddRow(new string[] {
+                            "Jane",
+                            "Smith",
+                            "1 House Lane",
+                            "Leicester",
+                            "Leicestershire",
+                            "LE1 9BH",
+                            "07111111111"});
 #line 25
- testRunner.When("I checkout with my details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I checkout with my <details>", ((string)(null)), table1, "When ");
 #line hidden
-#line 27
+#line 29
  testRunner.Then("My order is present in my Orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

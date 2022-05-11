@@ -32,50 +32,24 @@ namespace FinalProject1.POMS
             BtnCheckout.Click();
         }
 
-        public Checkout Billingfn(string firstname)
+        public void BillingDetails(TestData data)
         {
             FirstnameFind.Clear();
-            FirstnameFind.SendKeys(firstname);
-            return this;
-        }
-
-        public Checkout Billingln(string lastname)
-        {
+            FirstnameFind.SendKeys(data.Firstname);
             LastnameFind.Clear();
-            LastnameFind.SendKeys(lastname);
-            return this;
-        }
-        public Checkout Billingal1(string addressL1)
-        {
+            LastnameFind.SendKeys(data.Lastname);
             AddressL1Find.Clear();
-            AddressL1Find.SendKeys(addressL1);
-            return this;
-        }
-        public Checkout Billingal2(string addressL2)
-        {
+            AddressL1Find.SendKeys(data.AddressL1);
             AddressL2Find.Clear();
-            AddressL2Find.SendKeys(addressL2);
-            return this;
-        }
-        public Checkout Billingcity(string city)
-        {
+            AddressL2Find.SendKeys(data.AddressL2);
             CityFind.Clear();
-            CityFind.SendKeys(city);
-            return this;
-        }
-        public Checkout Billingpc(string postcode)
-        {
+            CityFind.SendKeys(data.City);
             PostcodeFind.Clear();
-            PostcodeFind.SendKeys(postcode);
-            return this;
-        }
-        public Checkout Billingphone(string phone)
-        {
+            PostcodeFind.SendKeys(data.Postcode);
             PhoneFind.Clear();
-            PhoneFind.SendKeys(phone);
-            return this;
+            PhoneFind.SendKeys(data.PhoneNo);
         }
-        public void placed()
+        public void Placed()
         {
             var ScrollToCheckout = new Actions(driver);
             ScrollToCheckout.MoveToElement(PlaceOrder);
