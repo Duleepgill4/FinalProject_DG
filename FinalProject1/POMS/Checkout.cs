@@ -54,6 +54,7 @@ namespace FinalProject1.POMS
             var ScrollToCheckout = new Actions(driver);
             ScrollToCheckout.MoveToElement(PlaceOrder);
             ScrollToCheckout.Perform();
+            Thread.Sleep(2000);
             PlaceOrder.Click();
         }
     }

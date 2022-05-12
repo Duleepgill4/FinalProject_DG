@@ -38,25 +38,28 @@ namespace FinalProject1.POMS
         //moved from decimal.parse to Converto as it can convert more types not just string //
 
         //uses GetDiscount to be converted to decimal while trimming the start £ sign and returns it
-        public Decimal Discount()
-        {
-            return Convert.ToDecimal(GetDiscount.Text.TrimStart('£'));
-        }
-        //uses Subtotal to be converted to decimal while trimming the start £ sign and returns it
-        public Decimal Subtotal()
-        {
-            return Convert.ToDecimal(GetSubtotal.Text.TrimStart('£'));
-        }
-        //uses total to be converted to decimal while trimming the start £ sign and returns it
         public Decimal Total()
         {
             return Convert.ToDecimal(GetTotal.Text.TrimStart('£'));
         }
-
-        public Decimal Shipping()
+        public Decimal CheckTotal()
         {
-            return Convert.ToDecimal(GetShipping.Text.TrimStart('£'));
-            
+            //capturing string elements and converting to decimal and removing '£' sign at the start 
+            Decimal Discount= Convert.ToDecimal(GetDiscount.Text.TrimStart('£'));
+            Decimal Subtotal= Convert.ToDecimal(GetSubtotal.Text.TrimStart('£'));
+            Decimal Shipping= Convert.ToDecimal(GetShipping.Text.TrimStart('£'));
+            Decimal CorrectTotal = (Subtotal- Discount) + Shipping;
+            return CorrectTotal;
+
+        }
+       
+        public Decimal CheckCoupon()
+        {
+            Decimal Discount = (Convert.ToDecimal(GetDiscount.Text.TrimStart('£')) )* 100;
+            Decimal Subtotal = Convert.ToDecimal(GetSubtotal.Text.TrimStart('£'));
+            //calculate discount actually applied
+            decimal AppliedDiscount = (Discount / Subtotal);//=10
+            return AppliedDiscount;
         }
 
 

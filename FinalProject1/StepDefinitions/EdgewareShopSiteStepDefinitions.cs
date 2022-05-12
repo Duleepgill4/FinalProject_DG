@@ -7,6 +7,7 @@ using FinalProject1.POMS;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using TechTalk.SpecFlow.Assist;
+using FinalProject1.Support;
 //using static FinalProject1.StepDefinitions.TestBase;
 
 namespace FinalProject1.EdgewareShopSiteStepDefinitions
@@ -15,6 +16,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
     public class EdgewareShopSiteStepDefinitions
     {
         IWebDriver driver;
+        Helper helper;
         private readonly ScenarioContext _scenarioContext;
         private TestData _data;
         public EdgewareShopSiteStepDefinitions(ScenarioContext scenarioContext, TestData data)
@@ -24,6 +26,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             _scenarioContext = scenarioContext;
             _data = data;
             driver = (IWebDriver)_scenarioContext["webdriver"];
+            helper = new Helper(driver);
 
         }
 
@@ -61,16 +64,11 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             Thread.Sleep(1000);
 
             Cart Coupon = new Cart(driver);
-            //calling in and assigning figures to be used for assertion
-            Decimal Discount = (Coupon.Discount())*100;
-            Decimal Subtotal = Coupon.Subtotal();
-            //calculate discount actually applied
-            decimal AppliedDiscount = (Discount / Subtotal);//=10
 
             //entering try to capture if the discount is correct or not
             try
             {
-                Assert.That(AppliedDiscount, Is.EqualTo(p0), "Incorrect discount applied !");
+                Assert.That((Coupon.CheckCoupon()), Is.EqualTo(p0), "Incorrect discount applied !");
 
             }
             catch (Exception error)
@@ -84,18 +82,13 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         {
             //checking total including discount and shipping
             Cart Coupon = new Cart(driver);
-            //calling in and assigning figures to be used for assertion
-            Decimal Discount1 = Coupon.Discount();
-            Decimal Subtotal1 = Coupon.Subtotal();
-            Decimal Total = Coupon.Total();
-            Decimal Shipping = Coupon.Shipping();
+            
 
-            Decimal CorrectTotal = (Subtotal1 - Discount1) + Shipping;
             //If correct total is same as supposed total then pass if it fails show message.
-            Assert.That(CorrectTotal, Is.EqualTo(Total), "Total price is not calculated correctly !");
+            Assert.That((Coupon.CheckTotal()), Is.EqualTo(Coupon.Total()), "Total price is not calculated correctly !");
 
         }
-        [When(@"I checkout with my <details>")]
+        [When(@"I checkout with my details")]
         public void WhenICheckoutWithMyDetails(Table table)
         {
             _data = table.CreateInstance<TestData>();
@@ -109,21 +102,17 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         [Then(@"My order is present in my Orders")]
         public void ThenMyOrderIsPresentInMyOrders()
         {
-            //takes time to load order confirmation
-            WebDriverWait Wait2 = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            Wait2.Until(drv => drv.Url.Contains("order-received"));
-
-            //order just placed
-            string MyOrder = '#' + driver.FindElement(By.CssSelector(".order > strong")).Text;
+            //wait using helper file
+            helper.WaitForUrl("order-received");
 
             Orders orderDetails = new Orders(driver);
             orderDetails.ViewOrders();
 
             //capture the whole orders tbl
-            var Orders = driver.FindElement(By.ClassName("account-orders-table")).Text;
+            var Orders = driver.FindElement(By.CssSelector("tr:nth-of-type(6) > .woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions")).Text;
 
             //check order numn is present in orders
-            Assert.That(Orders, Does.Contain(MyOrder), "order not present in stored orders");
+            Assert.That(Orders, Does.Contain(orderDetails.MyOrder()), "order not present in stored orders");
 
         }
     }

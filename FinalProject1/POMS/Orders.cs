@@ -20,8 +20,8 @@ namespace FinalProject1.POMS
         public IWebElement AccountNav => driver.FindElement(By.LinkText("My account"));
         public IWebElement MyOrders => driver.FindElement(By.LinkText("Orders"));
         //capture the whole orders tbl
-        public IWebElement AllOrders => driver.FindElement(By.ClassName("account-orders-table"));
-
+        public IWebElement OrdersTable => driver.FindElement(By.ClassName("account-orders-table"));
+        public IWebElement FindMyOrder => driver.FindElement(By.CssSelector(".order > strong"));
 
         public void ViewOrders()
         {
@@ -29,7 +29,11 @@ namespace FinalProject1.POMS
             AccountNav.Click();
             MyOrders.Click();
         }
-   
 
+        public string MyOrder()
+        {
+            string MyOrder = '#' + driver.FindElement(By.CssSelector(".order > strong")).Text;
+            return MyOrder;
+        }
     }
 }

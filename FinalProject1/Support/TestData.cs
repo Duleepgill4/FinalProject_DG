@@ -10,7 +10,7 @@ namespace FinalProject1
 {
     public class TestData
     {
-        //C# Object file to define test data
+        //Plain Old C# Object (POCO) file to define test data
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string AddressL1 { get; set; }

@@ -158,7 +158,7 @@ this.FeatureBackground();
                             "LE1 9BH",
                             "07111111111"});
 #line 25
- testRunner.When("I checkout with my <details>", ((string)(null)), table1, "When ");
+ testRunner.When("I checkout with my details", ((string)(null)), table1, "When ");
 #line hidden
 #line 29
  testRunner.Then("My order is present in my Orders", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
