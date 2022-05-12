@@ -86,6 +86,8 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
 
             //If correct total is same as supposed total then pass if it fails show message.
             Assert.That((Coupon.CheckTotal()), Is.EqualTo(Coupon.Total()), "Total price is not calculated correctly !");
+            //empty cart
+            Coupon.Empty();
 
         }
         [When(@"I checkout with my details")]
@@ -105,14 +107,18 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             //wait using helper file
             helper.WaitForUrl("order-received");
 
+            //navigate to myorders page in account
             Orders orderDetails = new Orders(driver);
+
+            //capture order number
+            string MyOrder =orderDetails.MyOrder();
             orderDetails.ViewOrders();
 
             //capture the whole orders tbl
-            var Orders = driver.FindElement(By.CssSelector("tr:nth-of-type(6) > .woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions")).Text;
+            //var Orders = driver.FindElement(By.CssSelector(".woocommerce-MyAccount-content")).Text;
 
             //check order numn is present in orders
-            Assert.That(Orders, Does.Contain(orderDetails.MyOrder()), "order not present in stored orders");
+            Assert.That((orderDetails.AllOrders()), Does.Contain(MyOrder), "order not present in stored orders");
 
         }
     }

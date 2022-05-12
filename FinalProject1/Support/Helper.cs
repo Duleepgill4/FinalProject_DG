@@ -17,11 +17,11 @@ namespace FinalProject1.Support
 
         }
 
-        public void WaitForUrl(string RecievedUrl)
+        public void WaitForUrl(string ReceivedUrl)
         {
             //takes time to load order confirmation
             WebDriverWait Wait2 = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
-            Wait2.Until(drv => drv.Url.Contains(RecievedUrl));
+            Wait2.Until(drv => drv.Url.Contains(ReceivedUrl));
         }
 
     }

@@ -26,7 +26,8 @@ namespace FinalProject1.POMS
         public IWebElement GetTotal => driver.FindElement(By.CssSelector("strong > .amount.woocommerce-Price-amount"));
         //shipping
         public IWebElement GetShipping => driver.FindElement(By.CssSelector(".shipping > td > .amount.woocommerce-Price-amount"));
-
+        //empty cart red button
+        public IWebElement GetEmptyCart => driver.FindElement(By.LinkText("×"));
         public Cart AddCoupon (string edgewords)
         {
             CouponField.SendKeys(edgewords);
@@ -62,6 +63,9 @@ namespace FinalProject1.POMS
             return AppliedDiscount;
         }
 
-
+        public void Empty()
+        {
+            GetEmptyCart.Click();
+        }
     }
 }
