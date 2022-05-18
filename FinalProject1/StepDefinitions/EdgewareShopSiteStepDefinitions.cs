@@ -71,9 +71,9 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
                 Assert.That((Coupon.CheckCoupon()), Is.EqualTo(p0), "Incorrect discount applied !");
 
             }
-            catch (Exception error)
+            catch (Exception )
             {
-                Console.WriteLine("Unable to calculate discount ",error.Message);
+                
             }
         }
 
