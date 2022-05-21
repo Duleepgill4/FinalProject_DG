@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinalProject1.POMS;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -38,9 +39,8 @@ namespace FinalProject1.TestBase
         public void Teardown()
         {
             //navigate to account and logout
-            driver.FindElement(By.Id("menu-item-46")).Click();
-            driver.FindElement(By.PartialLinkText("Log out")).Click();
-            driver.Quit();
+            AfterScenario LogOut = new AfterScenario(driver);
+            LogOut.CloseDown();
 
         }
     }

@@ -34,6 +34,7 @@ namespace FinalProject1.POMS
 
         public void BillingDetails(TestData data)
         {
+            //inputting inline table table data into fields
             FindFirstname.Clear();
             FindFirstname.SendKeys(data.Firstname);
             FindLastname.Clear();
@@ -52,6 +53,7 @@ namespace FinalProject1.POMS
         }
         public void Placed()
         {
+            //scrolling down the page to an element to make it clickable
             var ScrollToCheckout = new Actions(driver);
             ScrollToCheckout.MoveToElement(FindPlaceOrder);
             ScrollToCheckout.Perform();

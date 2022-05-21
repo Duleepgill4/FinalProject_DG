@@ -36,8 +36,6 @@ namespace FinalProject1.POMS
         }
 
 
-        //moved from decimal.parse to Converto as it can convert more types not just string //
-
         //uses GetDiscount to be converted to decimal while trimming the start £ sign and returns it
         public Decimal GetTotal()
         {
@@ -65,6 +63,7 @@ namespace FinalProject1.POMS
 
         public void Empty()
         {
+            //empty the cart- ready for another test
             FindEmptyCart.Click();
         }
     }
