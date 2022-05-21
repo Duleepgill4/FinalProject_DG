@@ -39,8 +39,8 @@ namespace FinalProject1.TestBase
         public void Teardown()
         {
             //navigate to account and logout
-            AfterScenario LogOut = new AfterScenario(driver);
-            LogOut.CloseDown();
+            CloseDown LogOut = new CloseDown(driver);
+            LogOut.LogOut();
 
         }
     }
