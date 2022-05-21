@@ -58,7 +58,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         }
 
         [Then(@"the '([^']*)'% discount and shipping is applied to the total")]
-        public void ThenTheDiscountAndShippingIsAppliedToTheTotal(Decimal p0)
+        public void ThenTheDiscountAndShippingIsAppliedToTheTotal(Decimal DiscountCode)
         {
             //allowing the system to catch up after adding coupon
             Thread.Sleep(1000);
@@ -68,7 +68,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             //entering try to capture if the discount is correct or not
             try
             {
-                Assert.That((Coupon.CheckCoupon()), Is.EqualTo(p0), "Incorrect discount applied !");
+                Assert.That((Coupon.CheckCoupon()), Is.EqualTo(DiscountCode), "Incorrect discount applied !");
 
             }
             catch (Exception )
@@ -85,7 +85,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             
 
             //If correct total is same as supposed total then pass if it fails show message.
-            Assert.That((Coupon.CheckTotal()), Is.EqualTo(Coupon.Total()), "Total price is not calculated correctly !");
+            Assert.That((Coupon.CheckTotal()), Is.EqualTo(Coupon.GetTotal()), "Total price is not calculated correctly !");
             //empty cart
             Coupon.Empty();
 
@@ -113,9 +113,6 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             //capture order number
             string MyOrder =orderDetails.MyOrder();
             orderDetails.ViewOrders();
-
-            //capture the whole orders tbl
-            //var Orders = driver.FindElement(By.CssSelector(".woocommerce-MyAccount-content")).Text;
 
             //check order numn is present in orders
             Assert.That((orderDetails.AllOrders()), Does.Contain(MyOrder), "order not present in stored orders");

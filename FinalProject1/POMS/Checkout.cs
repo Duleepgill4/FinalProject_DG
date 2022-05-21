@@ -17,46 +17,46 @@ namespace FinalProject1.POMS
         }
 
        // public IWebElement btncheckout => driver.FindElement(By.Id("menu-item-45"));
-        public IWebElement BtnCheckout => driver.FindElement(By.LinkText("Proceed to checkout"));
+        public IWebElement FindBtnCheckout => driver.FindElement(By.LinkText("Proceed to checkout"));
         
-        public IWebElement FirstnameFind => driver.FindElement(By.Id("billing_first_name"));
-        public IWebElement LastnameFind => driver.FindElement(By.Id("billing_last_name"));
-        public IWebElement AddressL1Find => driver.FindElement(By.Id("billing_address_1"));
-        public IWebElement AddressL2Find => driver.FindElement(By.Id("billing_address_2"));
-        public IWebElement CityFind => driver.FindElement(By.Id("billing_city"));
-        public IWebElement PostcodeFind => driver.FindElement(By.Id("billing_postcode"));
-        public IWebElement PhoneFind => driver.FindElement(By.Id("billing_phone"));
-        public IWebElement PlaceOrder => driver.FindElement(By.Id("place_order"));
+        public IWebElement FindFirstname => driver.FindElement(By.Id("billing_first_name"));
+        public IWebElement FindLastname => driver.FindElement(By.Id("billing_last_name"));
+        public IWebElement FindAddressL1 => driver.FindElement(By.Id("billing_address_1"));
+        public IWebElement FindAddressL2 => driver.FindElement(By.Id("billing_address_2"));
+        public IWebElement FindCity => driver.FindElement(By.Id("billing_city"));
+        public IWebElement FindPostcode => driver.FindElement(By.Id("billing_postcode"));
+        public IWebElement FindPhone => driver.FindElement(By.Id("billing_phone"));
+        public IWebElement FindPlaceOrder => driver.FindElement(By.Id("place_order"));
         public void CheckoutBtn()
         {
-            BtnCheckout.Click();
+            FindBtnCheckout.Click();
         }
 
         public void BillingDetails(TestData data)
         {
-            FirstnameFind.Clear();
-            FirstnameFind.SendKeys(data.Firstname);
-            LastnameFind.Clear();
-            LastnameFind.SendKeys(data.Lastname);
-            AddressL1Find.Clear();
-            AddressL1Find.SendKeys(data.AddressL1);
-            AddressL2Find.Clear();
-            AddressL2Find.SendKeys(data.AddressL2);
-            CityFind.Clear();
-            CityFind.SendKeys(data.City);
-            PostcodeFind.Clear();
-            PostcodeFind.SendKeys(data.Postcode);
-            PhoneFind.Clear();
-            PhoneFind.SendKeys(data.PhoneNo);
+            FindFirstname.Clear();
+            FindFirstname.SendKeys(data.Firstname);
+            FindLastname.Clear();
+            FindLastname.SendKeys(data.Lastname);
+            FindAddressL1.Clear();
+            FindAddressL1.SendKeys(data.AddressL1);
+            FindAddressL2.Clear();
+            FindAddressL2.SendKeys(data.AddressL2);
+            FindCity.Clear();
+            FindCity.SendKeys(data.City);
+            FindPostcode.Clear();
+            FindPostcode.SendKeys(data.Postcode);
+            FindPhone.Clear();
+            FindPhone.SendKeys(data.PhoneNo);
 
         }
         public void Placed()
         {
             var ScrollToCheckout = new Actions(driver);
-            ScrollToCheckout.MoveToElement(PlaceOrder);
+            ScrollToCheckout.MoveToElement(FindPlaceOrder);
             ScrollToCheckout.Perform();
             Thread.Sleep(2000);
-            PlaceOrder.Click();
+            FindPlaceOrder.Click();
         }
     }
 }

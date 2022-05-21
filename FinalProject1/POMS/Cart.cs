@@ -15,23 +15,23 @@ namespace FinalProject1.POMS
             this.driver = driver;
         }
         //input field for coupom
-        public IWebElement CouponField => driver.FindElement(By.CssSelector("input#coupon_code"));
+        public IWebElement FindCouponField => driver.FindElement(By.CssSelector("input#coupon_code"));
         //apply coupon button
-        public IWebElement CouponClick => driver.FindElement(By.CssSelector("button[name='apply_coupon']"));
+        public IWebElement FindCouponClick => driver.FindElement(By.CssSelector("button[name='apply_coupon']"));
         //get discount amount
-        public IWebElement GetDiscount => driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount"));
+        public IWebElement FindDiscount => driver.FindElement(By.CssSelector(".cart-discount.coupon-edgewords > td > .amount.woocommerce-Price-amount"));
         //subtotal after discount applied
-        public IWebElement GetSubtotal => driver.FindElement(By.CssSelector(".cart-subtotal > td > .amount.woocommerce-Price-amount"));
+        public IWebElement FindSubtotal => driver.FindElement(By.CssSelector(".cart-subtotal > td > .amount.woocommerce-Price-amount"));
         //Total price 'to pay'
-        public IWebElement GetTotal => driver.FindElement(By.CssSelector("strong > .amount.woocommerce-Price-amount"));
+        public IWebElement FindTotal => driver.FindElement(By.CssSelector("strong > .amount.woocommerce-Price-amount"));
         //shipping
-        public IWebElement GetShipping => driver.FindElement(By.CssSelector(".shipping > td > .amount.woocommerce-Price-amount"));
+        public IWebElement FindShipping => driver.FindElement(By.CssSelector(".shipping > td > .amount.woocommerce-Price-amount"));
         //empty cart red button
-        public IWebElement GetEmptyCart => driver.FindElement(By.LinkText("×"));
+        public IWebElement FindEmptyCart => driver.FindElement(By.LinkText("×"));
         public Cart AddCoupon (string edgewords)
         {
-            CouponField.SendKeys(edgewords);
-            CouponClick.Click();
+            FindCouponField.SendKeys(edgewords);
+            FindCouponClick.Click();
             return this;
         }
 
@@ -39,16 +39,16 @@ namespace FinalProject1.POMS
         //moved from decimal.parse to Converto as it can convert more types not just string //
 
         //uses GetDiscount to be converted to decimal while trimming the start £ sign and returns it
-        public Decimal Total()
+        public Decimal GetTotal()
         {
-            return Convert.ToDecimal(GetTotal.Text.TrimStart('£'));
+            return Convert.ToDecimal(FindTotal.Text.TrimStart('£'));
         }
         public Decimal CheckTotal()
         {
             //capturing string elements and converting to decimal and removing '£' sign at the start 
-            Decimal Discount= Convert.ToDecimal(GetDiscount.Text.TrimStart('£'));
-            Decimal Subtotal= Convert.ToDecimal(GetSubtotal.Text.TrimStart('£'));
-            Decimal Shipping= Convert.ToDecimal(GetShipping.Text.TrimStart('£'));
+            Decimal Discount= Convert.ToDecimal(FindDiscount.Text.TrimStart('£'));
+            Decimal Subtotal= Convert.ToDecimal(FindSubtotal.Text.TrimStart('£'));
+            Decimal Shipping= Convert.ToDecimal(FindShipping.Text.TrimStart('£'));
             Decimal CorrectTotal = (Subtotal- Discount) + Shipping;
             return CorrectTotal;
 
@@ -56,8 +56,8 @@ namespace FinalProject1.POMS
        
         public Decimal CheckCoupon()
         {
-            Decimal Discount = (Convert.ToDecimal(GetDiscount.Text.TrimStart('£')) )* 100;
-            Decimal Subtotal = Convert.ToDecimal(GetSubtotal.Text.TrimStart('£'));
+            Decimal Discount = (Convert.ToDecimal(FindDiscount.Text.TrimStart('£')) )* 100;
+            Decimal Subtotal = Convert.ToDecimal(FindSubtotal.Text.TrimStart('£'));
             //calculate discount actually applied
             decimal AppliedDiscount = (Discount / Subtotal);//=10
             return AppliedDiscount;
@@ -65,7 +65,7 @@ namespace FinalProject1.POMS
 
         public void Empty()
         {
-            GetEmptyCart.Click();
+            FindEmptyCart.Click();
         }
     }
 }

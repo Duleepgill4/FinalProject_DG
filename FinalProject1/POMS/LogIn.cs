@@ -15,32 +15,32 @@ namespace FinalProject1.POMS
                 this.driver = driver;    
             }
 
-        public IWebElement DismissButton=> driver.FindElement(By.LinkText("Dismiss"));
-        public IWebElement  UserName => driver.FindElement(By.CssSelector("input#username"));
-        public IWebElement PassWord => driver.FindElement(By.CssSelector("input#password"));
-        public IWebElement LogInButton => driver.FindElement(By.CssSelector("button[name='login']"));
+        public IWebElement FindDismissButton => driver.FindElement(By.LinkText("Dismiss"));
+        public IWebElement FindUserName => driver.FindElement(By.CssSelector("input#username"));
+        public IWebElement FindPassWord => driver.FindElement(By.CssSelector("input#password"));
+        public IWebElement FindLogInButton => driver.FindElement(By.CssSelector("button[name='login']"));
 
 
         public void Dismiss()
         {
-            DismissButton.Click();
+            FindDismissButton.Click();
 
         }
         public LogInPOMS Loginuser (string username)
         {
-            UserName.SendKeys(username);
+            FindUserName.SendKeys(username);
             
             return this;
         }
         public LogInPOMS Loginpass(string password)
         {
-           
-            PassWord.SendKeys(password);
+
+            FindPassWord.SendKeys(password);
             return this;
         }
         public void LogInBtn()
         {
-            LogInButton.Click();
+            FindLogInButton.Click();
         }
     }
 }

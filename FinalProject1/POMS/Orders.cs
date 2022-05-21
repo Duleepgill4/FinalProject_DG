@@ -17,17 +17,17 @@ namespace FinalProject1.POMS
 
         //order  number captures after order placed
         //public IWebElement MyOrderNum => driver.FindElement(By.CssSelector(".order > strong"));
-        public IWebElement AccountNav => driver.FindElement(By.LinkText("My account"));
-        public IWebElement MyOrders => driver.FindElement(By.LinkText("Orders"));
+        public IWebElement FindAccountNav => driver.FindElement(By.LinkText("My account"));
+        public IWebElement FindMyOrders => driver.FindElement(By.LinkText("Orders"));
         //capture the whole orders tbl
-        public IWebElement OrdersTable => driver.FindElement(By.CssSelector(".woocommerce-MyAccount-content"));
+        public IWebElement FindOrdersTable => driver.FindElement(By.CssSelector(".woocommerce-MyAccount-content"));
         public IWebElement FindMyOrder => driver.FindElement(By.CssSelector(".order > strong"));
 
         public void ViewOrders()
         {
             /*MyOrderNum.Displayed();*/
-            AccountNav.Click();
-            MyOrders.Click();
+            FindAccountNav.Click();
+            FindMyOrders.Click();
 
         }
 
@@ -37,7 +37,7 @@ namespace FinalProject1.POMS
         }
         public string AllOrders()
         {
-            return OrdersTable.Text;
+            return FindOrdersTable.Text;
         }
     }
 }

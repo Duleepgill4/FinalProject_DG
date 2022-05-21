@@ -15,21 +15,21 @@ namespace FinalProject1.POMS
             this.driver = driver;
         }
              
-        public IWebElement ShopTab => driver.FindElement(By.CssSelector("#menu-item-43 > a"));
+        public IWebElement FindShopTab => driver.FindElement(By.CssSelector("#menu-item-43 > a"));
         //Assert.That(driver.FindElement(By.CssSelector("#menu-item-43 > a")).Displayed);
 
             //add hoddie with logo to cart 
-        public IWebElement Hoodie => driver.FindElement(By.PartialLinkText("Hoodie with Logo"));
-        public IWebElement AddItem => driver.FindElement(By.CssSelector("button[name='add-to-cart']"));
-        public IWebElement ViewCart => driver.FindElement(By.CssSelector("ul#site-header-cart  a[title='View your shopping cart']"));
+        public IWebElement FindHoodie => driver.FindElement(By.PartialLinkText("Hoodie with Logo"));
+        public IWebElement FindAddItem => driver.FindElement(By.CssSelector("button[name='add-to-cart']"));
+        public IWebElement FindViewCart => driver.FindElement(By.CssSelector("ul#site-header-cart  a[title='View your shopping cart']"));
 
         public void AddHoodie()
         {
             //adding hoodie to basket through nav
-            ShopTab.Click();
-            Hoodie.Click();
-            AddItem.Click();
-            ViewCart.Click();
+            FindShopTab.Click();
+            FindHoodie.Click();
+            FindAddItem.Click();
+            FindViewCart.Click();
                        
         }
        
