@@ -8,7 +8,6 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using TechTalk.SpecFlow.Assist;
 using FinalProject1.Support;
-//using static FinalProject1.StepDefinitions.TestBase;
 
 namespace FinalProject1.EdgewareShopSiteStepDefinitions
 {
@@ -37,8 +36,8 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
             //login using environmental variables username/pass from runsettings
             LogInPOMS LogIn = new LogInPOMS(driver);
             LogIn.Dismiss();
-            LogIn.Loginuser(Environment.GetEnvironmentVariable("username"));
-            LogIn.Loginpass(Environment.GetEnvironmentVariable("password"));
+            LogIn.Loginuser(Environment.GetEnvironmentVariable("username")); //from run settings
+            LogIn.Loginpass(Environment.GetEnvironmentVariable("password")); //from run settings
             LogIn.LogInBtn();
         }
 
@@ -53,6 +52,7 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         [When(@"I apply the '([^']*)' discount code")]
         public void WhenIApplyTheDiscountCode(string edgewords)
         {
+            //use parameter for coupon code
             Cart Coupon = new Cart(driver);
             Coupon.AddCoupon(edgewords);
         }
@@ -93,8 +93,9 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         [When(@"I checkout with my details")]
         public void WhenICheckoutWithMyDetails(Table table)
         {
+            //use data from inline table in feature file
             _data = table.CreateInstance<TestData>();
-
+            //add billing details and place order
             Checkout Checkout = new Checkout(driver);
             Checkout.CheckoutBtn();
             Checkout.BillingDetails(_data);
@@ -104,12 +105,11 @@ namespace FinalProject1.EdgewareShopSiteStepDefinitions
         [Then(@"My order is present in my Orders")]
         public void ThenMyOrderIsPresentInMyOrders()
         {
-            //wait using helper file
+            //wait using helper file- for URL to change and contain:
             helper.WaitForUrl("order-received");
 
             //navigate to myorders page in account
             Orders orderDetails = new Orders(driver);
-
             //capture order number
             string MyOrder =orderDetails.MyOrder();
             orderDetails.ViewOrders();

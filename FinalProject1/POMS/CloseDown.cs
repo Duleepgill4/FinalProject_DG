@@ -22,6 +22,7 @@ namespace FinalProject1.POMS
 
         public void LogOut()
         {
+            Thread.Sleep(2000);
             //navigate to account and logout
             FindAccount.Click();
             FindLogOut.Click();

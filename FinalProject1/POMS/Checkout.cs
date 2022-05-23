@@ -16,7 +16,7 @@ namespace FinalProject1.POMS
             this.driver = driver;  
         }
 
-       // public IWebElement btncheckout => driver.FindElement(By.Id("menu-item-45"));
+       // find all elements that need capturing to submit the order
         public IWebElement FindBtnCheckout => driver.FindElement(By.LinkText("Proceed to checkout"));
         
         public IWebElement FindFirstname => driver.FindElement(By.Id("billing_first_name"));
@@ -29,6 +29,7 @@ namespace FinalProject1.POMS
         public IWebElement FindPlaceOrder => driver.FindElement(By.Id("place_order"));
         public void CheckoutBtn()
         {
+            // checkout/place order
             FindBtnCheckout.Click();
         }
 

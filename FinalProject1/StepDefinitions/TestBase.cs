@@ -30,8 +30,10 @@ namespace FinalProject1.TestBase
             //set up baseURL
             driver = new ChromeDriver();
             _scenarioContext["webdriver"] = driver;
+            driver.Manage().Window.Maximize();
             string LogInURL = Environment.GetEnvironmentVariable("LogInURL");
             driver.Url = LogInURL;
+          
 
         }
 

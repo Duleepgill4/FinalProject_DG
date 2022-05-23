@@ -30,13 +30,14 @@ namespace FinalProject1.POMS
         public IWebElement FindEmptyCart => driver.FindElement(By.LinkText("×"));
         public Cart AddCoupon (string edgewords)
         {
+            //use parameter value for coupon
             FindCouponField.SendKeys(edgewords);
             FindCouponClick.Click();
             return this;
         }
 
 
-        //uses GetDiscount to be converted to decimal while trimming the start £ sign and returns it
+        //uses FindDiscount to be converted to decimal while trimming the start £ sign and returns it
         public Decimal GetTotal()
         {
             return Convert.ToDecimal(FindTotal.Text.TrimStart('£'));
